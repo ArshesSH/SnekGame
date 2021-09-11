@@ -88,7 +88,7 @@ void Game::UpdateModel()
 		}
 	}
 }
-//asdf
+//asdfasdf
 void Game::ComposeFrame()
 {
 	snek.Draw(brd);
