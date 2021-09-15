@@ -88,7 +88,7 @@ void Game::UpdateModel()
 		}
 	}
 }
-//asdfasdf
+
 void Game::ComposeFrame()
 {
 	snek.Draw(brd);
@@ -97,4 +97,5 @@ void Game::ComposeFrame()
 	{
 		SpriteCodex::DrawGameOver(200, 200, gfx);
 	}
+	brd.DrawBorder();
 }
