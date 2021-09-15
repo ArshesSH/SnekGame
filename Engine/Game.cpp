@@ -29,7 +29,8 @@ Game::Game( MainWindow& wnd )
 	brd(gfx),
 	rng(std::random_device()()),
 	snek({2,2}),
-	goal(rng, brd, snek)
+	goal(rng, brd, snek),
+	obs(rng, brd, snek, goal)
 {
 }
 
@@ -93,6 +94,9 @@ void Game::UpdateModel()
 			{
 				snekSpeedUpCounter = 0;
 				snekMovePeriod = std::max(snekMovePeriod - 1, snekMovePeriodMin);
+
+				//obstacles
+				obs.Respawn(rng, brd, snek, goal);
 			}
 		}
 	}
@@ -109,6 +113,7 @@ void Game::ComposeFrame()
 	{
 		snek.Draw(brd);
 		goal.Draw(brd);
+		obs.Draw(brd);
 		if (gameIsOver)
 		{
 			SpriteCodex::DrawGameOver(350, 265, gfx);
