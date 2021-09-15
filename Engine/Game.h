@@ -54,6 +54,6 @@ private:
 	static constexpr  int snekMovePeriod = 20;
 	int snekMoveCounter = 0;
 	bool gameIsOver = false;
-
+	bool gameIsStarted = false;
 	/********************************/
 };

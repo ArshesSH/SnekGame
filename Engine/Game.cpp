@@ -43,59 +43,74 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	if (!gameIsOver)
+	if (gameIsStarted)
 	{
-		if (wnd.kbd.KeyIsPressed(VK_RIGHT))
+		if (!gameIsOver)
 		{
-			delta_loc = { 1, 0 };
-		}
-		if (wnd.kbd.KeyIsPressed(VK_LEFT))
-		{
-			delta_loc = { -1, 0 };
-		}
-		if (wnd.kbd.KeyIsPressed(VK_DOWN))
-		{
-			delta_loc = { 0, 1 };
-		}
-		if (wnd.kbd.KeyIsPressed(VK_UP))
-		{
-			delta_loc = { 0, -1 };
-		}
-
-		++snekMoveCounter;
-		if (snekMoveCounter >= snekMovePeriod)
-		{
-			snekMoveCounter = 0;
-			const Location next = snek.GetNextHeadLocation(delta_loc);
-			if (!brd.IsInsideBoard(next) || snek.IsInTileExceptEnd(next))
+			if (wnd.kbd.KeyIsPressed(VK_RIGHT))
 			{
-				gameIsOver = true;
+				delta_loc = { 1, 0 };
 			}
-			else
+			if (wnd.kbd.KeyIsPressed(VK_LEFT))
 			{
-				const bool eating = next == goal.GetLocation();
+				delta_loc = { -1, 0 };
+			}
+			if (wnd.kbd.KeyIsPressed(VK_DOWN))
+			{
+				delta_loc = { 0, 1 };
+			}
+			if (wnd.kbd.KeyIsPressed(VK_UP))
+			{
+				delta_loc = { 0, -1 };
+			}
 
-				if (eating)
+			++snekMoveCounter;
+			if (snekMoveCounter >= snekMovePeriod)
+			{
+				snekMoveCounter = 0;
+				const Location next = snek.GetNextHeadLocation(delta_loc);
+				if (!brd.IsInsideBoard(next) || snek.IsInTileExceptEnd(next))
 				{
-					snek.Grow();
+					gameIsOver = true;
 				}
-				snek.MoveBy(delta_loc);
-				if (eating)
+				else
 				{
-					goal.Respawn(rng, brd, snek);
+					const bool eating = next == goal.GetLocation();
+
+					if (eating)
+					{
+						snek.Grow();
+					}
+					snek.MoveBy(delta_loc);
+					if (eating)
+					{
+						goal.Respawn(rng, brd, snek);
+					}
 				}
 			}
 		}
 	}
+	else
+	{
+		gameIsStarted = wnd.kbd.KeyIsPressed(VK_RETURN);
+	}
+
 }
 
 void Game::ComposeFrame()
 {
-	snek.Draw(brd);
-	goal.Draw(brd);
-	if (gameIsOver)
+	if (gameIsStarted)
 	{
-		SpriteCodex::DrawGameOver(200, 200, gfx);
+		snek.Draw(brd);
+		goal.Draw(brd);
+		if (gameIsOver)
+		{
+			SpriteCodex::DrawGameOver(350, 265, gfx);
+		}
+		brd.DrawBorder();
 	}
-	brd.DrawBorder();
+	else
+	{
+		SpriteCodex::DrawTitle(290, 225, gfx);
+	}
 }
