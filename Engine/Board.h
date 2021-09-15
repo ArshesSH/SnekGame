@@ -15,6 +15,7 @@ public:
 private:
 	static constexpr Color borderColor = Colors::Blue;
 	static constexpr int dimension = 20;
+	static constexpr int cellPadding = 1;
 	static constexpr int width = 20;
 	static constexpr int height = 20;
 	static constexpr int borderWidth = 4;

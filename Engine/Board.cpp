@@ -17,7 +17,7 @@ void Board::DrawCell(const Location& loc, Color c)
 	const int off_x = x + borderWidth + borderPadding;
 	const int off_y = y + borderWidth + borderPadding;
 
-	gfx.DrawRectDim(loc.x * dimension + off_x, loc.y * dimension + off_y, width, height, c);
+	gfx.DrawRectDim(loc.x * dimension + off_x + cellPadding, loc.y * dimension + off_y + cellPadding, dimension - cellPadding*2, dimension - cellPadding * 2, c);
 }
 
 int Board::GetGridWidth() const
