@@ -88,6 +88,12 @@ void Game::UpdateModel()
 					}
 				}
 			}
+			++snekSpeedUpCounter;
+			if (snekSpeedUpCounter >= snekSpeedUpPeriod)
+			{
+				snekSpeedUpCounter = 0;
+				snekMovePeriod = std::max(snekMovePeriod - 1, snekMovePeriodMin);
+			}
 		}
 	}
 	else
