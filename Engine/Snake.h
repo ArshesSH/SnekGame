@@ -29,7 +29,6 @@ public:
 	bool IsInTileExceptEnd(const Location& target) const;
 	bool IsInTile(const Location& target) const;
 
-
 private:
 	static constexpr Color headColor = Colors::Yellow;
 	static constexpr int nSegmentsMax = 100;
