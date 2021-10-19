@@ -17,18 +17,27 @@ void Obstacles::Respawn(std::mt19937 rng, const Board& brd, const Snake& snek, c
 	{
 		newLoc.x = xDist(rng);
 		newLoc.y = yDist(rng);
-	} while (snek.IsInTile(newLoc) || (golLoc.x == newLoc.x && golLoc.y == newLoc.y));
+	} while (snek.IsInTile(newLoc) || CheckHasObstacles(newLoc) || (golLoc.x == newLoc.x && golLoc.y == newLoc.y));
 
-	loc = newLoc;
+	hasObstacles[newLoc.y * brdWidth + newLoc.x] = true;
 }
 
 void Obstacles::Draw(Board& brd)
 {
-	brd.DrawCell(loc, c);
+	for (int y = 0; y < brdHeight; y++)
+	{
+		for (int x = 0; x < brdWidth; x++)
+		{
+			if (CheckHasObstacles({x, y}))
+			{
+				brd.DrawCell({ x, y }, c);
+			}
+		}
+	}
 }
 
-const Location& Obstacles::GetLocation()
+bool Obstacles::CheckHasObstacles(const Location& loc) const
 {
-	return loc;
+	return hasObstacles[loc.y * brdWidth + loc.x];
 }
 

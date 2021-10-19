@@ -29,8 +29,7 @@ Game::Game( MainWindow& wnd )
 	brd(gfx),
 	rng(std::random_device()()),
 	snek({2,2}),
-	goal(rng, brd, snek),
-	obs(rng, brd, snek, goal)
+	goal(rng, brd, snek)
 {
 }
 
@@ -83,6 +82,7 @@ void Game::UpdateModel()
 					if (eating)
 					{
 						snek.Grow();
+						obs.Respawn(rng, brd, snek, goal);
 					}
 					snek.MoveBy(delta_loc);
 					if (eating)
