@@ -44,6 +44,8 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	const float dt = ft.Mark();
+
 	if (gameIsStarted)
 	{
 		if (!gameIsOver)
@@ -65,10 +67,10 @@ void Game::UpdateModel()
 				delta_loc = { 0, -1 };
 			}
 
-			++snekMoveCounter;
+			snekMoveCounter += dt;
 			if (snekMoveCounter >= snekMovePeriod)
 			{
-				snekMoveCounter = 0;
+				snekMoveCounter -= snekMovePeriod;
 				const Location next = snek.GetNextHeadLocation(delta_loc);
 				if (!brd.IsInsideBoard(next) || snek.IsInTileExceptEnd(next))
 				{
@@ -89,7 +91,11 @@ void Game::UpdateModel()
 					}
 				}
 			}
-			++snekSpeedUpCounter;
+			snekMovePeriod = std::max(snekMovePeriod - dt * snekSpeedUpFactor, snekMovePeriodMin);
+			
+
+			/*
+ 			++snekSpeedUpCounter;
 			if (snekSpeedUpCounter >= snekSpeedUpPeriod)
 			{
 				snekSpeedUpCounter = 0;
@@ -98,6 +104,8 @@ void Game::UpdateModel()
 				//obstacles
 				obs.Respawn(rng, brd, snek, goal);
 			}
+			*/
+
 		}
 	}
 	else
