@@ -27,6 +27,7 @@
 #include "Snake.h"
 #include "Goal.h"
 #include "Obstacles.h"
+#include "Poison.h"
 #include "FrameTimer.h"
 #include <random>
 
@@ -54,6 +55,7 @@ private:
 	std::mt19937 rng;
 	Goal goal;
 	Obstacles obs;
+	Poison poisons;
 	Location delta_loc = {1, 0};
 	static constexpr float snekMovePeriodMin = 0.07f;
 	float snekMovePeriod = 0.4f;

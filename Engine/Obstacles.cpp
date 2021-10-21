@@ -1,11 +1,11 @@
 #include "Obstacles.h"
 
-Obstacles::Obstacles(std::mt19937 rng, const Board& brd, const Snake& snek, const Goal& goal)
+Obstacles::Obstacles(std::mt19937 rng, const Board& brd, const Snake& snek, const Goal& goal, const Poison& poison)
 {
-	Respawn(rng, brd, snek, goal);
+	Respawn(rng, brd, snek, goal, poison);
 }
 
-void Obstacles::Respawn(std::mt19937 rng, const Board& brd, const Snake& snek, const Goal& goal)
+void Obstacles::Respawn(std::mt19937 rng, const Board& brd, const Snake& snek, const Goal& goal, const Poison& poison)
 {
 	std::uniform_int_distribution<int> xDist(0, brd.GetGridWidth() - obstacleDist);
 	std::uniform_int_distribution<int> yDist(0, brd.GetGridHeight() - obstacleDist);
@@ -17,7 +17,7 @@ void Obstacles::Respawn(std::mt19937 rng, const Board& brd, const Snake& snek, c
 	{
 		newLoc.x = xDist(rng);
 		newLoc.y = yDist(rng);
-	} while (snek.IsInTile(newLoc) || CheckHasObstacles(newLoc) || (golLoc.x == newLoc.x && golLoc.y == newLoc.y));
+	} while (snek.IsInTile(newLoc) || poison.CheckHasPoison(newLoc) || CheckHasObstacles(newLoc) || (golLoc.x == newLoc.x && golLoc.y == newLoc.y));
 
 	hasObstacles[newLoc.y * brdWidth + newLoc.x] = true;
 }
