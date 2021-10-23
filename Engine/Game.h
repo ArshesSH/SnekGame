@@ -58,6 +58,7 @@ private:
 	Poison poisons;
 	Location delta_loc = {1, 0};
 	static constexpr float snekMovePeriodMin = 0.07f;
+	static constexpr float snekMovePeriodSpeedup = 0.15f;
 	float snekMovePeriod = 0.4f;
 	float snekMoveCounter = 0.0f;
 	static constexpr float snekSpeedUpFactor = 0.005f;
