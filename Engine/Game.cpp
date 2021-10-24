@@ -103,7 +103,7 @@ void Game::UpdateModel()
 					snek.MoveBy(delta_loc);
 					brd.ConsumeContents(next);
 					brd.SpawnContents(rng, snek, 3);
-					snekMovePeriod = std::max(snekMovePeriod * snekSpeedUpFactor, snekMovePeriodMin);
+					snekMovePeriod = std::max(snekMovePeriod - snekSpeedUpFactor, snekMovePeriodMin);
 				}
 				else
 				{

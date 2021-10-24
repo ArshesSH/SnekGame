@@ -19,7 +19,7 @@ public:
 	void DrawCells();
 private:
 	static constexpr Color borderColor = Colors::Blue;
-	static constexpr Color obstacleColor = Colors::Gray;
+	static constexpr Color obstacleColor = Colors::White;
 	static constexpr Color foodColor = Colors::Red;
 	static constexpr Color poisonColor = { 142,0,255 };
 	static constexpr int dimension = 20;
