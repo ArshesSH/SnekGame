@@ -25,7 +25,7 @@
 #include "Graphics.h"
 #include "Board.h"
 #include "Snake.h"
-#include "Goal.h"
+#include "FrameTimer.h"
 #include <random>
 
 class Game
@@ -46,14 +46,20 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
+	FrameTimer ft;
 	Board brd;
 	Snake snek;
 	std::mt19937 rng;
-	Goal goal;
 	Location delta_loc = {1, 0};
-	static constexpr  int snekMovePeriod = 20;
-	int snekMoveCounter = 0;
+	static constexpr float snekMovePeriodMin = 0.04f;
+	static constexpr float snekMovePeriodSpeedup = 0.15f;
+	static constexpr int nPoison = 240;
+	static constexpr int nFood = 12;
+	float snekMovePeriod = 0.4f;
+	float snekMoveCounter = 0.0f;
+	static constexpr float snekSpeedUpFactor = 0.09f;
+	float snekSpeedUpCounter = 0;
 	bool gameIsOver = false;
-
+	bool gameIsStarted = false;
 	/********************************/
 };
