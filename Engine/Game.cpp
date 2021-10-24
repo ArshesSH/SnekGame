@@ -28,10 +28,17 @@ Game::Game( MainWindow& wnd )
 	gfx( wnd ),
 	brd(gfx),
 	rng(std::random_device()()),
-	snek({2,2}),
-	poisons(rng, brd, snek),
-	goal(rng, brd, snek)
+	snek({2,2})
 {
+	for (int i = 0; i < nPoison; i++)
+	{
+		brd.SpawnContents(rng, snek, 3);
+	}
+	for (int i = 0; i < nFood; i++)
+	{
+		brd.SpawnContents(rng, snek, 2);
+	}
+	brd.SpawnContents(rng, snek, 2);
 }
 
 void Game::Go()
@@ -78,41 +85,31 @@ void Game::UpdateModel()
 			{
 				snekMoveCounter -= snekModifiedMovePeriod;
 				const Location next = snek.GetNextHeadLocation(delta_loc);
-				if (!brd.IsInsideBoard(next) || snek.IsInTileExceptEnd(next) || obs.CheckHasObstacles(next))
+				const int contents = brd.GetContents(next);
+				if (!brd.IsInsideBoard(next) || snek.IsInTileExceptEnd(next) || contents == 1)
 				{
 					gameIsOver = true;
 				}
+				else if(contents == 2)
+				{
+					snek.Grow();
+					snek.MoveBy(delta_loc);
+					brd.ConsumeContents(next);
+					brd.SpawnContents(rng, snek, 2);
+					brd.SpawnContents(rng, snek, 1);
+				}
+				else if (contents == 3)
+				{
+					snek.MoveBy(delta_loc);
+					brd.ConsumeContents(next);
+					brd.SpawnContents(rng, snek, 3);
+					snekMovePeriod = std::max(snekMovePeriod * snekSpeedUpFactor, snekMovePeriodMin);
+				}
 				else
 				{
-					const bool eating = next == goal.GetLocation();
-
-					if (eating)
-					{
-						snek.Grow();
-						obs.Respawn(rng, brd, snek, goal, poisons);
-					}
 					snek.MoveBy(delta_loc);
-					if (eating)
-					{
-						goal.Respawn(rng, brd, snek);
-					}
 				}
 			}
-			snekMovePeriod = std::max(snekMovePeriod - dt * snekSpeedUpFactor, snekMovePeriodMin);
-			
-
-			/*
- 			++snekSpeedUpCounter;
-			if (snekSpeedUpCounter >= snekSpeedUpPeriod)
-			{
-				snekSpeedUpCounter = 0;
-				snekMovePeriod = std::max(snekMovePeriod - 1, snekMovePeriodMin);
-
-				//obstacles
-				obs.Respawn(rng, brd, snek, goal);
-			}
-			*/
-
 		}
 	}
 	else
@@ -126,15 +123,13 @@ void Game::ComposeFrame()
 {
 	if (gameIsStarted)
 	{
-		poisons.Draw(brd);
+		brd.DrawBorder();
+		brd.DrawCells();
 		snek.Draw(brd);
-		goal.Draw(brd);
-		obs.Draw(brd);
 		if (gameIsOver)
 		{
 			SpriteCodex::DrawGameOver(350, 265, gfx);
 		}
-		brd.DrawBorder();
 	}
 	else
 	{
