@@ -21,6 +21,7 @@
 #include "MainWindow.h"
 #include "Game.h"
 #include "SpriteCodex.h"
+#include "Config.h"
 
 Game::Game( MainWindow& wnd )
 	:
