@@ -48,11 +48,11 @@ private:
 	/********************************/
 	/*  User Variables              */
 	FrameTimer ft;
+	Config cfg;
 	Board brd;
 	Snake snek;
 	std::mt19937 rng;
 	Location delta_loc = {1, 0};
-	Config cfg;
 	static constexpr float snekMovePeriodMin = 0.04f;
 	float snekMovePeriodSpeedup = cfg.GetSpeedupRate();
 	int nPoison = cfg.GetPoisonAmount();

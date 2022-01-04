@@ -38,7 +38,7 @@ void Config::LoadConfig()
 			{
 				std::getline( in, str, ' ');
 				boardWidth = std::stoi( str );
-				std::getline( in, str, ' ' );
+				std::getline( in, str );
 				boardHeight = std::stoi( str );
 			}
 			else if ( str.compare( "[Poison Amount]" ) == 0 )

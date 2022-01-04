@@ -15,7 +15,8 @@ public:
 		Poison
 	};
 public:
-	Board(Graphics& gfx);
+	Board(Graphics& gfx, const int brdWidth, const int brdHeight);
+	~Board();
 	void DrawCell(const Location& loc, Color c);
 	int GetGridWidth() const;
 	int GetGridHeight() const;
@@ -32,12 +33,12 @@ private:
 	static constexpr Color poisonColor = { 142,0,255 };
 	static constexpr int dimension = 20;
 	static constexpr int cellPadding = 1;
-	static constexpr int width = 32;
-	static constexpr int height = 24;
+	int width = 32;
+	int height = 24;
 	static constexpr int borderWidth = 4;
 	static constexpr int borderPadding = 2;
 	static constexpr int x = 70;
 	static constexpr int y = 50;	
-	CellContents contents[width * height] = { CellContents::Empty };
+	CellContents* contents;
 	Graphics& gfx;
 };

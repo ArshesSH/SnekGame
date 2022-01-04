@@ -2,10 +2,22 @@
 #include "Snake.h"
 #include <assert.h>
 
-Board::Board(Graphics& gfx)
+Board::Board(Graphics& gfx, const int brdWidth, const int brdHeight )
 	:
-	gfx(gfx)
+	gfx(gfx),
+	width(brdWidth),
+	height(brdHeight)
 {
+	contents = new CellContents[brdWidth * brdHeight];
+	for ( int i = 0; i < brdWidth * brdHeight; i++ )
+	{
+		contents[i] = CellContents::Empty;
+	}
+}
+
+Board::~Board()
+{
+	delete[] contents;
 }
 
 void Board::DrawCell(const Location& loc, Color c)
