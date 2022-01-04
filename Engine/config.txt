@@ -2,7 +2,7 @@
 10
 
 [Speedup Rate]
-0.15
+0.09
 
 [Board Size]
 32 24

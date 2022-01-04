@@ -1,42 +1,41 @@
 #pragma once
-#include <fstream>
+
 #include <string>
 
 class Config
 {
 public:
-	Config();
+	Config(const std::string fileName);
 	void SaveConfig();
-	void LoadConfig();
-	float GetSpeedupRate()
+	float GetSpeedupRate() const
 	{
 		return speedupRate;
 	}
-	int GetTileSize()
+	int GetTileSize() const
 	{
 		return tileSize;
 	}
-	int GetBoardWidth()
+	int GetBoardWidth() const
 	{
 		return boardWidth;
 	}
-	int GetBoardHeight()
+	int GetBoardHeight() const
 	{
 		return boardHeight;
 	}
-	int GetPoisonAmount()
+	int GetPoisonAmount() const
 	{
 		return nPoison;
 	}
-	int GetFoodAmount()
+	int GetFoodAmount() const
 	{
 		return nFood;
 	}
 private:
-	float speedupRate = 0.15f;
-	int tileSize = 20;
-	int boardWidth = 32;
-	int boardHeight = 24;
-	int nPoison = 240;
-	int nFood = 12;
+	float speedupRate;
+	int tileSize;
+	int boardWidth;
+	int boardHeight;
+	int nPoison;
+	int nFood;
 };

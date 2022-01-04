@@ -47,19 +47,19 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
-	FrameTimer ft;
 	Config cfg;
+	FrameTimer ft;
 	Board brd;
 	Snake snek;
 	std::mt19937 rng;
 	Location delta_loc = {1, 0};
 	static constexpr float snekMovePeriodMin = 0.04f;
-	float snekMovePeriodSpeedup = cfg.GetSpeedupRate();
-	int nPoison = cfg.GetPoisonAmount();
-	int nFood = cfg.GetFoodAmount();
+	static constexpr float snekMovePeriodSpeedup = 0.015f;
+	int nPoison;
+	int nFood;
 	float snekMovePeriod = 0.4f;
 	float snekMoveCounter = 0.0f;
-	static constexpr float snekSpeedUpFactor = 0.09f;
+	float snekSpeedUpFactor;
 	float snekSpeedUpCounter = 0;
 	bool gameIsOver = false;
 	bool gameIsStarted = false;

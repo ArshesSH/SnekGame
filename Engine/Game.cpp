@@ -27,9 +27,12 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	brd(gfx, cfg.GetBoardWidth(), cfg.GetBoardHeight()),
+	brd(gfx, cfg),
 	rng(std::random_device()()),
-	snek({2,2})
+	snek({2,2}),
+	nFood(cfg.GetFoodAmount()),
+	nPoison(cfg.GetPoisonAmount()),
+	snekSpeedUpFactor(cfg.GetSpeedupRate())
 {
 	for (int i = 0; i < nPoison; i++)
 	{

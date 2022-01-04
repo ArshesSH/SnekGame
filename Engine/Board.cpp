@@ -2,13 +2,14 @@
 #include "Snake.h"
 #include <assert.h>
 
-Board::Board(Graphics& gfx, const int brdWidth, const int brdHeight )
+Board::Board(Graphics& gfx, const Config& cfg)
 	:
 	gfx(gfx),
-	width(brdWidth),
-	height(brdHeight)
+	width(cfg.GetBoardWidth()),
+	height(cfg.GetBoardHeight()),
+	dimension(cfg.GetTileSize()),
+	contents( new CellContents[brdWidth * brdHeight] )
 {
-	contents = new CellContents[brdWidth * brdHeight];
 	for ( int i = 0; i < brdWidth * brdHeight; i++ )
 	{
 		contents[i] = CellContents::Empty;
