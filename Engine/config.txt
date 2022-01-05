@@ -1,5 +1,5 @@
 [Tile Size]
-10
+20
 
 [Speedup Rate]
 0.09

@@ -25,6 +25,7 @@
 
 Game::Game( MainWindow& wnd )
 	:
+	cfg("config.txt"),
 	wnd( wnd ),
 	gfx( wnd ),
 	brd(gfx, cfg),

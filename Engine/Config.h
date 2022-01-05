@@ -32,10 +32,10 @@ public:
 		return nFood;
 	}
 private:
-	float speedupRate;
-	int tileSize;
-	int boardWidth;
-	int boardHeight;
-	int nPoison;
-	int nFood;
+	float speedupRate = 0;
+	int tileSize = 0;
+	int boardWidth = 0;
+	int boardHeight = 0;
+	int nPoison = 0;
+	int nFood = 0;
 };

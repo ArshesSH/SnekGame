@@ -8,9 +8,9 @@ Board::Board(Graphics& gfx, const Config& cfg)
 	width(cfg.GetBoardWidth()),
 	height(cfg.GetBoardHeight()),
 	dimension(cfg.GetTileSize()),
-	contents( new CellContents[brdWidth * brdHeight] )
+	contents( new CellContents[width * height] )
 {
-	for ( int i = 0; i < brdWidth * brdHeight; i++ )
+	for ( int i = 0; i < width * height; i++ )
 	{
 		contents[i] = CellContents::Empty;
 	}
