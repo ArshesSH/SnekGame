@@ -8,17 +8,8 @@ Board::Board(Graphics& gfx, const Config& cfg)
 	width(cfg.GetBoardWidth()),
 	height(cfg.GetBoardHeight()),
 	dimension(cfg.GetTileSize()),
-	contents( new CellContents[width * height] )
+	contents( width * height, CellContents::Empty )
 {
-	for ( int i = 0; i < width * height; i++ )
-	{
-		contents[i] = CellContents::Empty;
-	}
-}
-
-Board::~Board()
-{
-	delete[] contents;
 }
 
 void Board::DrawCell(const Location& loc, Color c)
@@ -68,6 +59,10 @@ void Board::DrawBorder()
 
 Board::CellContents Board::GetContents(const Location& loc) const
 {
+	if (loc.y < 0 || loc.x < 0)
+	{
+		return contents[0];
+	}
 	return contents[loc.y * width + loc.x];
 }
 
